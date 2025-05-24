@@ -24,7 +24,20 @@ $result = $conn->query($sql);
 </head>
 <body>
     <h1>Admin Dashboard</h1>
-    <a href="register.php">Add New User</a>
+
+    <!-- Admin Navigation -->
+    <nav>
+        <ul>
+            <li><a href="register.php">Add New User</a></li>
+            <li><a href="add_car.php">Add Car</a></li>
+            <li><a href="add_driver.php">Add Driver</a></li>
+            <li><a href="view_notifications.php">View Notifications</a></li>
+            <li><a href="car_reports.php">View Car Reports</a></li>
+            <li><a href="passenger_counter.php">Passenger Counter</a></li>
+        </ul>
+    </nav>
+
+    <h2>User Management</h2>
     <table border="1" cellpadding="10" cellspacing="0">
         <thead>
             <tr>

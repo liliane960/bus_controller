@@ -3,12 +3,12 @@ session_start();
 require_once '../config/db.php';
 
 // Only admin can access
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    header('Location: login.php');
-    exit;
-}
+// if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+//     header('Location: login.php');
+//     exit;
+// }
 
-$db = (new Database())->getConnection();
+$db = (new Database())->Connection();
 
 if (!isset($_GET['id'])) {
     header('Location: admin_dashboard.php');

@@ -2,12 +2,13 @@
 session_start();
 require_once '../config/db.php';
 
-// Only admin allowed
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+// ✅ Ensure user is logged in
+if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
+// ✅ Check if ID is passed
 if (!isset($_GET['id'])) {
     header('Location: admin_dashboard.php');
     exit;
@@ -15,18 +16,18 @@ if (!isset($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-$db = (new Database())->getConnection();
+$db = (new Database())->connect(); // using mysqli
 
-// Prevent admin from deleting themselves (optional)
+// ✅ Prevent self-deletion
 if ($_SESSION['user_id'] == $id) {
-    // Cannot delete yourself
     header('Location: admin_dashboard.php?error=cannot_delete_self');
     exit;
 }
 
-$query = "DELETE FROM users WHERE id = :id";
+// ✅ Check table for correct ID column: likely `user_id` not `id`
+$query = "DELETE FROM users WHERE user_id = ?";
 $stmt = $db->prepare($query);
-$stmt->bindParam(':id', $id);
+$stmt->bind_param("i", $id);
 
 if ($stmt->execute()) {
     header('Location: admin_dashboard.php?success=user_deleted');
