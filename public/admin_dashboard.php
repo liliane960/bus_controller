@@ -125,8 +125,7 @@ if (!$conn) {
 
         document.addEventListener('DOMContentLoaded', () => {
             setupNavLinks();
-
-            const page = window.location.hash ? window.location.hash.substring(1) : 'Dashboard.php';
+            const page = window.location.hash ? window.location.hash.substring(1) : 'register.php';
             loadPage(page);
         });
     </script>
@@ -137,7 +136,7 @@ if (!$conn) {
     <!-- Sidebar -->
     <nav>
         <ul>
-            <li><a href="Dashboard.php">Dashboard</a></li>
+            <!-- <li><a href="Dashboard.php">Dashboard</a></li> -->
             <li><a href="register.php">Add New User</a></li>
             <li><a href="add_bus.php">Add Car</a></li>
             <li><a href="view_users.php">View Users</a></li>
@@ -149,8 +148,16 @@ if (!$conn) {
     </nav>
 
     <!-- Main content container -->
-    <main id="main-content">
-        <p>Loading...</p>
+    <main>
+        <!-- Fixed top summary section -->
+        <section id="fixed-summary">
+            <?php include 'Dashboard.php'; ?>
+        </section>
+
+        <!-- Page-specific dynamic content -->
+        <section id="main-content">
+            <p>Loading...</p>
+        </section>
     </main>
 </div>
 
