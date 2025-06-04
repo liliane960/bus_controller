@@ -22,6 +22,7 @@ $result = $conn->query($sql);
 </head>
 <body>
     <h1>Car (Bus) Report</h1>
+    <a href="export_car_counts.php" target="_blank">Export to CSV</a>
     <!-- <a href="admin_dashboard.php">Back to Dashboard</a><br><br> -->
 
     <table border="1" cellpadding="10" cellspacing="0">
