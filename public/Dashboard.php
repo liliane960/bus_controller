@@ -9,11 +9,14 @@ $policeCount = $conn->query("SELECT COUNT(*) as total FROM users WHERE role = 'p
 ?>
 
 <!-- Always displayed user summary -->
+ <!-- <center ><h1 style="color: #16a085;">Welcame to our bus management passenger admin dashboard</h1></center> -->
+ <center ><h1 style="color: #3498db;">Welcame to our bus management passenger admin dashboard</h1></center>
 <h2>User Summary</h2>
 <div style="display: flex; gap: 20px; margin-top: 20px;">
     <div style="flex: 1; background: #eafaf1; padding: 15px; border-radius: 8px; text-align: center;">
         <h3>Total Admins</h3>
-        <p style="font-size: 24px; color: #16a085;"><?= $adminCount ?></p>
+        <!-- <p style="font-size: 24px; color: #16a085;"><?= $adminCount ?></p> -->
+        <p style="font-size: 24px; color: #3498db;"><?= $adminCount ?></p>
     </div>
     <div style="flex: 1; background: #fdf6e3; padding: 15px; border-radius: 8px; text-align: center;">
         <h3>Total Drivers</h3>

@@ -48,7 +48,8 @@ if (!$conn) {
 
         nav ul li a:hover,
         nav ul li a.active {
-            background-color: #1abc9c;
+            /* background-color: #1abc9c; */
+            background-color: #3498db;
             font-weight: bold;
         }
 
@@ -164,4 +165,4 @@ if (!$conn) {
 </body>
 </html>
 
-<?php $conn->close(); ?>
+<!-- <?php $conn->close(); ?> -->
