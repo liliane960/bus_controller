@@ -143,6 +143,7 @@ if (!$conn) {
             <li><a href="view_users.php">View Users</a></li>
             <li><a href="view_notifications.php">View Notifications</a></li>
             <li><a href="view_car_report.php">View Car Reports</a></li>
+            <li><a href="view_buses.php">View Car Detail</a></li>
             <li><a href="passenger_counter.php">Passenger Counter</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
