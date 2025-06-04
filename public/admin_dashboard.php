@@ -1,73 +1,160 @@
 <?php
-// Correct path to db.php
 require_once '../config/db.php';
-
-// Initialize DB connection
 $db = new Database();
 $conn = $db->connect();
 
-// Check connection (for MySQLi style)
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
-
-// Fetch all users
-$sql = "SELECT user_id, username, role FROM users ORDER BY user_id ASC";
-$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Admin Dashboard - Manage Users</title>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
     <link rel="stylesheet" href="css/style.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        nav {
+            width: 220px;
+            background-color: #2c3e50;
+            padding-top: 20px;
+            color: white;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li a {
+            display: block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: #1abc9c;
+            font-weight: bold;
+        }
+
+        main {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: white;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+
+    <script>
+        function loadPage(page) {
+            fetch(page)
+                .then(response => {
+                    if (!response.ok) throw new Error('Page load error');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('main-content').innerHTML = html;
+                    window.location.hash = page;
+                    setActiveLink(page);
+                })
+                .catch(error => {
+                    document.getElementById('main-content').innerHTML = "<p>Error loading page.</p>";
+                    console.error(error);
+                });
+        }
+
+        function setupNavLinks() {
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = this.getAttribute('href');
+
+                    if (page === 'logout.php') {
+                        if (confirm("Are you sure you want to log out?")) {
+                            window.location.href = page;
+                        }
+                    } else {
+                        loadPage(page);
+                    }
+                });
+            });
+        }
+
+        function setActiveLink(page) {
+            document.querySelectorAll('nav a').forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === page) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setupNavLinks();
+
+            const page = window.location.hash ? window.location.hash.substring(1) : 'Dashboard.php';
+            loadPage(page);
+        });
+    </script>
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
 
-    <!-- Admin Navigation -->
+<div class="container">
+    <!-- Sidebar -->
     <nav>
         <ul>
+            <li><a href="Dashboard.php">Dashboard</a></li>
             <li><a href="register.php">Add New User</a></li>
-            <li><a href="add_car.php">Add Car</a></li>
-            <li><a href="add_driver.php">Add Driver</a></li>
+            <li><a href="add_bus.php">Add Car</a></li>
+            <li><a href="view_users.php">View Users</a></li>
             <li><a href="view_notifications.php">View Notifications</a></li>
-            <li><a href="car_reports.php">View Car Reports</a></li>
+            <li><a href="view_car_report.php">View Car Reports</a></li>
             <li><a href="passenger_counter.php">Passenger Counter</a></li>
+            <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
 
-    <h2>User Management</h2>
-    <table border="1" cellpadding="10" cellspacing="0">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($result && $result->num_rows > 0): ?>
-                <?php while ($user = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= htmlspecialchars($user['user_id']) ?></td>
-                        <td><?= htmlspecialchars($user['username']) ?></td>
-                        <td><?= htmlspecialchars($user['role']) ?></td>
-                        <td>
-                            <a href="edit_user.php?id=<?= $user['user_id'] ?>">Edit</a> |
-                            <a href="delete_user.php?id=<?= $user['user_id'] ?>" onclick="return confirm('Are you sure?');">Delete</a>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <tr><td colspan="4">No users found.</td></tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+    <!-- Main content container -->
+    <main id="main-content">
+        <p>Loading...</p>
+    </main>
+</div>
+
 </body>
 </html>
 
-<?php
-$conn->close();
-?>
+<?php $conn->close(); ?>

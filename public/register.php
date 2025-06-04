@@ -1,17 +1,32 @@
-<!-- simple example -->
-<form action="register_process.php" method="POST">
-  <label>Username:</label>
-  <input type="text" name="username" required />
-  
-  <label>Password:</label>
-  <input type="password" name="password" required />
-  
-  <label>Role:</label>
-  <select name="role" required>
-    <option value="admin">Admin</option>
-    <option value="manager">Transport Manager</option>
-    <option value="authority">Authority</option>
-  </select>
-  
-  <button type="submit">Create User</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register New User</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Register New User</h1>
+    <form action="register_process.php" method="POST">
+        <label>Username:</label><br>
+        <input type="text" name="username" required><br><br>
+
+        <label>Password:</label><br>
+        <input type="password" name="password" required><br><br>
+
+        <label>Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label>Role:</label><br>
+        <select name="role" required>
+            <option value="">-- Select Role --</option>
+            <option value="admin">Admin</option>
+            <option value="driver">Driver</option>
+            <option value="police">Police</option>
+        </select><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+    <br>
+    <!-- <a href="admin_dashboard.php">Back to Dashboard</a> -->
+</body>
+</html>
