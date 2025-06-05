@@ -97,7 +97,7 @@ $conn->close();
 
         .login-container button {
             width: 100%;
-            background: #28a745;
+            background: #3498db;
             color: white;
             padding: 10px;
             border: none;
@@ -106,7 +106,7 @@ $conn->close();
         }
 
         .login-container button:hover {
-            background: #218838;
+            background: #3498db;
         }
 
         .error {
