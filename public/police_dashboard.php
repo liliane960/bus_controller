@@ -12,7 +12,7 @@ if (!$conn) {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>Police Dashboard</title>
     <link rel="stylesheet" href="css/style.css" />
     <style>
         body {
@@ -152,7 +152,7 @@ if (!$conn) {
         <section id="fixed-summary">
             <center ><h1 style="color: #3498db;">Welcame to our bus management passenger police dashboard</h1></center>
 
-            <?php include 'police.php'; ?>
+            <?php include 'policeInfo.php'; ?>
         </section>
 
         <!-- Page-specific dynamic content -->
