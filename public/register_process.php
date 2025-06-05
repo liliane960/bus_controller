@@ -38,10 +38,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->bind_param("ssss", $username, $hashed_password, $email, $role);
 
     if ($stmt->execute()) {
-        echo "User registered successfully. <a href='admin_dashboard.php'>Back to Dashboard</a>";
+        header("Location: admin_dashboard.php?message=✅ User registered successfully");
+        exit;
     } else {
         echo "Error: " . $stmt->error;
     }
+
 
     $stmt->close();
 }

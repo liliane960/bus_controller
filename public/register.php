@@ -27,6 +27,12 @@
         <button type="submit">Register</button>
     </form>
     <br>
-    <!-- <a href="admin_dashboard.php">Back to Dashboard</a> -->
-</body>
+        <script>
+        // If successful, reload after 3 seconds
+        <?php if ($isSuccess): ?>
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
+        <?php endif; ?>
+    </script>
 </html>
