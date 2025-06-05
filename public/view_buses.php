@@ -21,7 +21,8 @@ $result = $conn->query($sql);
 </head>
 <body>
     <h1>Bus List</h1>
-    <a href="add_bus.php">Add New Bus</a> |
+    <!-- <a href="add_bus.php">Add New Bus</a> | -->
+    <a href="export_car_counts.php" target="_blank">Export to CSV</a>
     <!-- <a href="admin_dashboard.php">Back to Dashboard</a> -->
     <br><br>
 

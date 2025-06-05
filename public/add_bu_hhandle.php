@@ -40,6 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             if ($stmt->execute()) {
                 $message = "✅ Bus added successfully.";
+                header("Location: admin_dashboard.php?message=✅ Bus registered successfully");
+                exit;
+
             } else {
                 $message = "❌ Error: " . $stmt->error;
             }

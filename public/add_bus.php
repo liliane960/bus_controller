@@ -1,37 +1,51 @@
 <?php
-
 require_once '../config/db.php';
 
 $db = new Database();
 $conn = $db->connect();
 
-// Fetch all drivers
 $driverResult = $conn->query("SELECT user_id, username FROM users WHERE role = 'driver'");
+
+// Handle success message passed via GET (e.g., after redirect from add_bu_hhandle.php)
+$message = isset($_GET['message']) ? $_GET['message'] : '';
+$isSuccess = strpos($message, '✅') !== false;
 ?>
-
-<h2>Add New Bus</h2>
-
-<?php if (!empty($message)): ?>
-    <p style="color: <?= strpos($message, '✅') !== false ? 'green' : 'red' ?>;">
-        <?= htmlspecialchars($message) ?>
-    </p>
-<?php endif; ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Register New bus</title>
+    <title>Register New Bus</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Register New bus</h1>
-    <form action="add_bu_hhandle.php" method="POST">
-    <label for="plate_number">Plate Number:</label><br>
-    <input type="text" name="plate_number" id="plate_number" required><br><br>
+    <h1>Register New Bus</h1>
 
-    <label for="capacity">Capacity:</label><br>
-    <input type="number" name="capacity" id="capacity" required><br><br>
- 
+    <?php if (!empty($message)): ?>
+        <p style="color: <?= $isSuccess ? 'green' : 'red' ?>;">
+            <?= htmlspecialchars($message) ?>
+        </p>
+    <?php endif; ?>
+
+    <form action="add_bu_hhandle.php" method="POST">
+        <label for="plate_number">Plate Number:</label><br>
+        <input 
+            type="text" 
+            name="plate_number" 
+            id="plate_number" 
+            placeholder="Eg: RAD000A" 
+            required 
+            pattern="[A-Z]{3}[0-9]{3}[A-Z]" 
+            title="Format: 3 letters, 3 numbers, 1 letter (e.g., RAA123B). 'RAD000A' is not allowed."><br><br>
+
+        <label for="capacity">Capacity:</label><br>
+        <input 
+            type="number" 
+            name="capacity" 
+            id="capacity" 
+            placeholder="Enter capacity (1 - 80)" 
+            min="1" 
+            max="80" 
+            required><br><br>
 
         <label for="driver_id">Assign Driver:</label><br>
         <select name="driver_id" id="driver_id" required>
@@ -41,8 +55,29 @@ $driverResult = $conn->query("SELECT user_id, username FROM users WHERE role = '
             <?php endwhile; ?>
         </select><br><br>
 
-        <button type="submit">Register bus</button>
+        <button type="submit">Register Bus</button>
     </form>
-    <br>
+
+    <script>
+        document.getElementById('capacity').addEventListener('input', function () {
+            const value = parseInt(this.value, 10);
+            if (value < 1) this.value = 1;
+            if (value > 80) this.value = 80;
+        });
+
+        document.getElementById('plate_number').addEventListener('input', function () {
+            if (this.value.toUpperCase() === 'RAD000A') {
+                alert("'RAD000A' is not allowed.");
+                this.value = '';
+            }
+        });
+
+        // If successful, reload after 3 seconds
+        <?php if ($isSuccess): ?>
+        setTimeout(function () {
+            location.reload();
+        }, 3000);
+        <?php endif; ?>
+    </script>
 </body>
 </html>

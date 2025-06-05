@@ -126,7 +126,7 @@ if (!$conn) {
 
         document.addEventListener('DOMContentLoaded', () => {
             setupNavLinks();
-            const page = window.location.hash ? window.location.hash.substring(1) : 'register.php';
+            // const page = window.location.hash ? window.location.hash.substring(1) : 'register.php';
             loadPage(page);
         });
     </script>
@@ -142,8 +142,8 @@ if (!$conn) {
             <li><a href="add_bus.php">Add Car</a></li>
             <li><a href="view_users.php">View Users</a></li>
             <li><a href="view_notifications.php">View Notifications</a></li>
-            <li><a href="view_car_report.php">View Car Reports</a></li>
-            <li><a href="view_buses.php">View Car Detail</a></li>
+            <!-- <li><a href="view_car_report.php">View Car Reports</a></li> -->
+            <li><a href="view_buses.php">Car Report</a></li>
             <li><a href="passenger_counter.php">Passenger Counter</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
