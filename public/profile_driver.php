@@ -43,7 +43,7 @@ $conn->close();
 </head>
 <body>
 
-    <h1>Driver Profile</h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Driver Profile</h1>
 
     <div class="info">
         <p><strong>Username:</strong> <?= htmlspecialchars($user['username']) ?></p>

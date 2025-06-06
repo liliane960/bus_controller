@@ -93,7 +93,7 @@ $conn->close();
     </style>
 </head>
 <body>
-    <h1>Edit Comment for Notification #<?= $notification['notification_id'] ?></h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Edit Comment for Notification #<?= $notification['notification_id'] ?></h1>
 
     <p><strong>Bus ID:</strong> <?= htmlspecialchars($notification['bus_id']) ?></p>
     <p><strong>Message:</strong> <?= htmlspecialchars($notification['message']) ?></p>

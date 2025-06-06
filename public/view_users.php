@@ -11,7 +11,7 @@ $policeCount = $conn->query("SELECT COUNT(*) as total FROM users WHERE role = 'p
 ?>
 
 
-<h2>Users List</h2>
+<h2 style="margin-top: 100px; font-size: 20px;">Users List</h2>
 <table border="1" cellpadding="8" cellspacing="0">
     <tr><th>ID</th><th>Username</th><th>Role</th><th>Action</th></tr>
     <?php while ($row = $result->fetch_assoc()): ?>

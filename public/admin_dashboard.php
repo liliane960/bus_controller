@@ -23,15 +23,21 @@ if (!$conn) {
 
         .container {
             display: flex;
-            min-height: 100vh;
         }
 
         nav {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 220px;
+            height: 100vh;
             background-color: #2c3e50;
             padding-top: 20px;
             color: white;
+            overflow-y: auto; /* optional: scroll only the sidebar if menu gets too long */
+            z-index: 1000;
         }
+
 
         nav ul {
             list-style-type: none;
@@ -43,20 +49,40 @@ if (!$conn) {
             padding: 10px 20px;
             color: white;
             text-decoration: none;
-            cursor: pointer;
         }
 
         nav ul li a:hover,
         nav ul li a.active {
-            /* background-color: #1abc9c; */
             background-color: #3498db;
             font-weight: bold;
         }
 
-        main {
+        /* main {
+            margin-left: 220px; 
             flex-grow: 1;
-            padding: 20px;
             background-color: white;
+        } */
+        main {
+            margin-left: 220px; /* width of the fixed sidebar */
+            flex-grow: 1;
+            background-color: white;
+        }
+
+        #fixed-summary {
+            position: fixed;
+            top: 0;
+            left: 220px;
+            right: 0;
+            background-color: #ecf0f1;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ccc;
+            z-index: 999;
+        }
+
+        #main-content {
+            margin-top: 100px; /* height of fixed-summary */
+            padding: 20px;
+            max-height: calc(100vh - 100px);
             overflow-y: auto;
         }
 
@@ -126,7 +152,7 @@ if (!$conn) {
 
         document.addEventListener('DOMContentLoaded', () => {
             setupNavLinks();
-            // const page = window.location.hash ? window.location.hash.substring(1) : 'register.php';
+            const page = window.location.hash ? window.location.hash.substring(1) : 'profile_admin.php';
             loadPage(page);
         });
     </script>
@@ -142,23 +168,21 @@ if (!$conn) {
             <li><a href="add_bus.php">Register Bus</a></li>
             <li><a href="view_users.php">View Users</a></li>
             <li><a href="view_notifications.php">View Notifications</a></li>
-            <!-- <li><a href="view_car_report.php">View Car Reports</a></li> -->
             <li><a href="view_buses.php">Bus Report</a></li>
             <li><a href="passenger_counter.php">Passenger Counter</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </nav>
 
-    <!-- Main content container -->
+    <!-- Main content area -->
     <main>
-        <!-- Fixed top summary section -->
+        <!-- Fixed summary at the top -->
         <section id="fixed-summary">
             <?php include 'Dashboard.php'; ?>
         </section>
 
-        <!-- Page-specific dynamic content -->
+        <!-- Dynamic content -->
         <section id="main-content">
-           <?php include 'profile_admin.php'; ?>
             <p>Loading...</p>
         </section>
     </main>
@@ -166,5 +190,3 @@ if (!$conn) {
 
 </body>
 </html>
-
-<!-- <?php $conn->close(); ?> -->

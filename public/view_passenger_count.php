@@ -22,7 +22,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Passenger Count Report</h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Passenger Count Report</h1>
     <!-- <a href="admin_dashboard.php">Back to Dashboard</a><br><br> -->
 
     <table border="1" cellpadding="10" cellspacing="0">

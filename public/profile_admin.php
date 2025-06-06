@@ -42,7 +42,7 @@ $conn->close();
 </head>
 <body>
 
-    <h1>Admin Profile</h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Admin Profile</h1>
 
     <div class="info">
         <h2>Account Info</h2>

@@ -21,7 +21,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Car (Bus) Report</h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Car Report</h1>
     <a href="export_car_counts.php" target="_blank">Export to CSV</a>
     <!-- <a href="admin_dashboard.php">Back to Dashboard</a><br><br> -->
 

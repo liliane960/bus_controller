@@ -89,7 +89,7 @@ $isSuccess = strpos($message, '✅') !== false;
 </head>
 <body>
 
-    <h1>Register New Bus</h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Register New Bus</h1>
 
     <?php if (!empty($message)): ?>
         <p class="<?= $isSuccess ? 'success-message' : 'error-message' ?>">

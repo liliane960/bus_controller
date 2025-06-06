@@ -64,11 +64,18 @@ if (!empty($busIds)) {
         }
 
         nav {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 220px;
+            height: 100vh;
             background-color: #2c3e50;
             padding-top: 20px;
             color: white;
+            overflow-y: auto; /* optional: scroll only the sidebar if menu gets too long */
+            z-index: 1000;
         }
+
 
         nav ul {
             list-style-type: none;
@@ -89,11 +96,16 @@ if (!empty($busIds)) {
             font-weight: bold;
         }
 
-        main {
+        /* main {
             flex-grow: 1;
             padding: 20px;
             background-color: white;
             overflow-y: auto;
+        } */
+        main {
+            margin-left: 220px; /* width of the fixed sidebar */
+            flex-grow: 1;
+            background-color: white;
         }
 
         table {

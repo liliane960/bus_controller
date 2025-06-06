@@ -22,7 +22,7 @@ $result = $conn->query($sql);
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Passenger Counter Records</h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Passenger Counter Records</h1>
     <!-- <a href="admin_dashboard.php">Back to Dashboard</a><br><br> -->
     <a href="export_passenger_counts.php" target="_blank">Export to CSV</a>
     <br><br>

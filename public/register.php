@@ -13,7 +13,7 @@
 
         h1 {
             text-align: center;
-            margin-top: 30px;
+            /* margin-top: 30px; */
             color: #333;
         }
 
@@ -21,10 +21,12 @@
             background-color: #ffffff;
             max-width: 400px;
             margin: 30px auto;
+            margin-top: 60px;
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+
 
         label {
             display: block;
@@ -76,7 +78,7 @@
     </style>
 </head>
 <body>
-    <h1>Register New User</h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Register New User</h1>
 
     <?php
     $message = isset($_GET['message']) ? $_GET['message'] : '';

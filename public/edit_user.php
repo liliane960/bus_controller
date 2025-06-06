@@ -69,7 +69,7 @@ $conn->close();
 </head>
 <body>
 
-    <h1>Edit User Id: <?= htmlspecialchars($user['user_id']) ?></h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Edit User Id: <?= htmlspecialchars($user['user_id']) ?></h1>
 
     <?php if (!empty($error)): ?>
         <p class="error"><?= htmlspecialchars($error) ?></p>

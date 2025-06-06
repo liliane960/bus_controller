@@ -45,7 +45,7 @@ if ($result && $result->num_rows > 0) {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Assign User as Driver</h1>
+    <h1 style="margin-top: 100px; font-size: 20px;">Assign User as Driver</h1>
     <!-- <a href="admin_dashboard.php">Back to Dashboard</a> -->
 
     <?php if ($message): ?>

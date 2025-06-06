@@ -56,7 +56,7 @@ $result = $stmt->get_result();
 </head>
 <body>
 
-    <h1 style="text-align: center;">Notifications</h1>
+    <h1 style="text-align: center; margin-top: 100px; font-size: 20px;">Notifications</h1>
 
     <?php if (isset($_GET['msg'])): ?>
         <p class="success-msg"><?= htmlspecialchars($_GET['msg']) ?></p>
