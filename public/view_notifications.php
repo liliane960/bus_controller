@@ -48,6 +48,10 @@ $result = $stmt->get_result();
         .edit-link { text-decoration: none; color: #2980b9; }
         .edit-link:hover { text-decoration: underline; }
         body { font-family: Arial, sans-serif; }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
     </style>
 </head>
 <body>
