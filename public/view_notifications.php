@@ -16,7 +16,7 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Query notifications depending on role
+// Fetch notifications based on role
 if ($userRole === 'admin' || $userRole === 'police') {
     $sql = "SELECT notification_id, bus_id, message, sent_at, comment FROM notifications ORDER BY sent_at DESC";
     $stmt = $conn->prepare($sql);
@@ -41,15 +41,15 @@ $result = $stmt->get_result();
 <head>
     <title>View Notifications</title>
     <style>
-        table { border-collapse: collapse; width: 80%; margin: auto; }
-        th, td { border: 1px solid #ddd; padding: 8px; }
-        input.comment-input { width: 90%; }
-        button.save-comment-btn { cursor: pointer; }
-        span.status-msg { font-weight: bold; margin-left: 10px; }
+        table { border-collapse: collapse; width: 80%; margin: 20px auto; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        h1 { text-align: center; margin-top: 30px; }
+        a.edit-link { color: blue; text-decoration: none; }
     </style>
 </head>
 <body>
-    <h1 style="text-align:center;">Notifications</h1>
+    <h1>Notifications</h1>
 
     <?php if ($result && $result->num_rows > 0): ?>
         <table>
@@ -70,16 +70,13 @@ $result = $stmt->get_result();
                     <td><?= htmlspecialchars($row['bus_id']) ?></td>
                     <td><?= htmlspecialchars($row['message']) ?></td>
                     <td><?= $row['sent_at'] ?></td>
-                    <td><?= $row['comment'] ?></td>
-                    <td> </td>
-                    <!-- <td>
-                        <input type="text" 
-                               class="comment-input" 
-                               data-id="<?= $row['notification_id'] ?>" 
-                               value="<?= htmlspecialchars($row['comment']) ?>">
-                        <button class="save-comment-btn" data-id="<?= $row['notification_id'] ?>">Save</button>
-                        <span class="status-msg" id="status-<?= $row['notification_id'] ?>"></span>
-                    </td> -->
+                    <td><?= htmlspecialchars($row['comment']) ?></td>
+                    <td>
+                        <a 
+                            class="edit-link" 
+                            href="edit_comment.php?notification_id=<?= $row['notification_id'] ?>"
+                        >Edit</a>
+                    </td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>
@@ -87,40 +84,6 @@ $result = $stmt->get_result();
     <?php else: ?>
         <p style="text-align:center;">No notifications available.</p>
     <?php endif; ?>
-
-<script>
-document.querySelectorAll('.save-comment-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-id');
-        const input = document.querySelector(`input.comment-input[data-id='${id}']`);
-        const comment = input.value;
-
-        fetch('save_comment.php', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({notification_id: id, comment: comment})
-        })
-        .then(res => res.json())
-        .then(data => {
-            const status = document.getElementById('status-' + id);
-            if(data.success){
-                status.textContent = 'Saved!';
-                status.style.color = 'green';
-            } else {
-                status.textContent = 'Failed!';
-                status.style.color = 'red';
-            }
-            setTimeout(() => { status.textContent = ''; }, 3000);
-        })
-        .catch(() => {
-            const status = document.getElementById('status-' + id);
-            status.textContent = 'Error!';
-            status.style.color = 'red';
-            setTimeout(() => { status.textContent = ''; }, 3000);
-        });
-    });
-});
-</script>
 
 </body>
 </html>
