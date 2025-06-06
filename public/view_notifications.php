@@ -57,7 +57,7 @@ $result = $stmt->get_result();
 <body>
 
     <h1 style="text-align: center; margin-top: 100px; font-size: 20px;">Notifications</h1>
-
+    <a href="export_notification.php" target="_blank">Export to CSV</a>
     <?php if (isset($_GET['msg'])): ?>
         <p class="success-msg"><?= htmlspecialchars($_GET['msg']) ?></p>
     <?php endif; ?>
