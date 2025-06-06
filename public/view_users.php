@@ -13,12 +13,16 @@ $policeCount = $conn->query("SELECT COUNT(*) as total FROM users WHERE role = 'p
 
 <h2>Users List</h2>
 <table border="1" cellpadding="8" cellspacing="0">
-    <tr><th>ID</th><th>Username</th><th>Role</th></tr>
+    <tr><th>ID</th><th>Username</th><th>Role</th><th>Action</th></tr>
     <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
             <td><?= htmlspecialchars($row['user_id']) ?></td>
             <td><?= htmlspecialchars($row['username']) ?></td>
             <td><?= htmlspecialchars($row['role']) ?></td>
+            <td>
+                <a href="edit_user.php?id=<?= $row['user_id'] ?>">Edit</a> |
+                <a href="delete_user.php?id=<?= $row['user_id'] ?>" onclick="return confirm('Are you sure?')">Delete</a>
+            <td>
         </tr>
     <?php endwhile; ?>
 </table>
