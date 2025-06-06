@@ -138,12 +138,12 @@ if (!$conn) {
     <nav>
         <ul>
             <!-- <li><a href="Dashboard.php">Dashboard</a></li> -->
-            <li><a href="register.php">Add New User</a></li>
-            <li><a href="add_bus.php">Add Car</a></li>
+            <li><a href="register.php">Register User</a></li>
+            <li><a href="add_bus.php">Register Bus</a></li>
             <li><a href="view_users.php">View Users</a></li>
             <li><a href="view_notifications.php">View Notifications</a></li>
             <!-- <li><a href="view_car_report.php">View Car Reports</a></li> -->
-            <li><a href="view_buses.php">Car Report</a></li>
+            <li><a href="view_buses.php">Bus Report</a></li>
             <li><a href="passenger_counter.php">Passenger Counter</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>

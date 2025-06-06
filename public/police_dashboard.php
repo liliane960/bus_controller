@@ -150,7 +150,7 @@ if (!$conn) {
     <main>
         <!-- Fixed top summary section -->
         <section id="fixed-summary">
-            <center ><h1 style="color: #3498db;">Welcame to our bus management passenger police dashboard</h1></center>
+            <center ><h1 style="color: #3498db;">POLICE DASHBOARD</h1></center>
 
             <?php include 'policeInfo.php'; ?>
         </section>
