@@ -63,13 +63,13 @@ $conn->close();
         body { font-family: Arial; max-width: 600px; margin: 40px auto; }
         label { display: block; margin-top: 12px; font-weight: bold; }
         input, select { width: 100%; padding: 8px; margin-top: 5px; }
-        input[type="submit"] { margin-top: 20px; background: #4CAF50; color: white; cursor: pointer; }
+        input[type="submit"] { margin-top: 20px; background: #3498db; color: white; cursor: pointer; }
         .error { color: red; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <h1>Edit User #<?= htmlspecialchars($user['user_id']) ?></h1>
+    <h1>Edit User Id: <?= htmlspecialchars($user['user_id']) ?></h1>
 
     <?php if (!empty($error)): ?>
         <p class="error"><?= htmlspecialchars($error) ?></p>
