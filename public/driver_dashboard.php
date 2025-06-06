@@ -108,6 +108,27 @@ if (!empty($busIds)) {
             background-color: white;
         }
 
+        #fixed-summary {
+            position: fixed;
+            top: 0;
+            left: 220px;
+            right: 0;
+            background-color: #ecf0f1;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ccc;
+            z-index: 999;
+            width: calc(100% - 220px); /* Adjust width to account for sidebar */
+        }
+
+        #main-content {
+            margin-top: 100px; /* height of fixed-summary */
+            padding: 20px;
+            max-height: calc(100vh - 100px);
+            max-width: 1200px;
+            overflow-y: auto;
+        }
+
+
         table {
             width: 100%;
             border-collapse: collapse;

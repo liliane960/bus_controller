@@ -59,18 +59,36 @@ if (!$conn) {
             background-color: #3498db;
             font-weight: bold;
         }
-
-        /* main {
-            flex-grow: 1;
-            padding: 20px;
-            background-color: white;
-            overflow-y: auto;
-        } */
         main {
             margin-left: 220px; /* width of the fixed sidebar */
             flex-grow: 1;
             background-color: white;
+            flex-grow: 1;
+            padding: 20px;
+            /* background-color: white; */
+            overflow-y: auto;
         }
+        
+        #fixed-summary {
+            position: fixed;
+            top: 0;
+            left: 220px;
+            right: 0;
+            background-color: #ecf0f1;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ccc;
+            z-index: 999;
+            width: calc(100% - 220px); /* Adjust width to account for sidebar */
+        }
+
+        #main-content {
+            margin-top: 100px; /* height of fixed-summary */
+            padding: 20px;
+            max-height: calc(100vh - 100px);
+            max-width: 1200px;
+            overflow-y: auto;
+        }
+        
         form {
             margin-top: 60px;
         }
