@@ -57,29 +57,7 @@ $conn->close();
         <p><strong>Joined on:</strong> <?= htmlspecialchars($user['created_at']) ?></p>
     </div>
 
-    <h2>Recent Bus Notifications</h2>
-    <?php if ($notifResult->num_rows > 0): ?>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Bus Plate</th>
-                <th>Message</th>
-                <th>Date</th>
-            </tr>
-            <?php while ($row = $notifResult->fetch_assoc()): ?>
-                <tr>
-                    <td><?= $row['notification_id'] ?></td>
-                    <td><?= htmlspecialchars($row['plate_number']) ?></td>
-                    <td><?= htmlspecialchars($row['message']) ?></td>
-                    <td><?= $row['sent_at'] ?></td>
-                </tr>
-            <?php endwhile; ?>
-        </table>
-    <?php else: ?>
-        <p>No notifications available.</p>
-    <?php endif; ?>
-
-    <p><a href="police_dashboard.php">← Back to Dashboard</a></p>
+    <!-- <p><a href="police_dashboard.php">← Back to Dashboard</a></p> -->
 
 </body>
 </html>
