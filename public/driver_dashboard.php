@@ -173,7 +173,7 @@ if (!empty($busIds)) {
     <!-- Sidebar -->
     <nav>
         <ul>
-            <li><a href="view_profile.php">View Profile</a></li>
+            <li><a href="profile_driver.php">View Profile</a></li>
             <li><a href="view_notifications.php">View Notifications</a></li>
             <li><a href="view_car_report.php">View Bus Reports</a></li>
             <li><a href="passenger_counter.php">Passenger Counter</a></li>
