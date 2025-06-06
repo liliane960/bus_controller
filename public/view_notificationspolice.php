@@ -39,7 +39,7 @@ $result = $stmt->get_result();
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View Notifications</title>
+    <title>View Notifications police</title>
     <style>
         table { border-collapse: collapse; width: 90%; margin: 30px auto; }
         th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
@@ -52,7 +52,7 @@ $result = $stmt->get_result();
 </head>
 <body>
 
-    <h1 style="text-align: center;">Notifications</h1>
+    <h1 style="text-align: center;">Notifications police</h1>
 
     <?php if (isset($_GET['msg'])): ?>
         <p class="success-msg"><?= htmlspecialchars($_GET['msg']) ?></p>
@@ -67,7 +67,7 @@ $result = $stmt->get_result();
                     <th>Message</th>
                     <th>Date</th>
                     <th>Comment</th>
-                    <th>Action</th>
+                    <!-- <th>Action</th> -->
                 </tr>
             </thead>
             <tbody>
@@ -78,9 +78,9 @@ $result = $stmt->get_result();
                         <td><?= htmlspecialchars($row['message']) ?></td>
                         <td><?= $row['sent_at'] ?></td>
                         <td><?= htmlspecialchars($row['comment']) ?></td>
-                        <td>
+                        <!-- <td>
                             <a class="edit-link" href="edit_comment.php?notification_id=<?= $row['notification_id'] ?>">Edit</a>
-                        </td>
+                        </td> -->
                     </tr>
                 <?php endwhile; ?>
             </tbody>

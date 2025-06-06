@@ -138,7 +138,7 @@ if (!$conn) {
     <nav>
         <ul>
 
-            <li><a href="view_notifications.php">View Notifications</a></li>
+            <li><a href="view_notificationspolice.php">View Notifications </a></li>
             <!-- <li><a href="view_car_report.php">View Car Reports</a></li> -->
             <li><a href="view_buses.php">Car Report</a></li>
             <li><a href="passenger_counter.php">Passenger Counter</a></li>

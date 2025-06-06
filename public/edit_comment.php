@@ -16,23 +16,17 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-// Validate notification_id parameter
 if (!isset($_GET['notification_id']) || !is_numeric($_GET['notification_id'])) {
     die("Invalid notification ID.");
 }
 
 $notificationId = (int)$_GET['notification_id'];
 
-// Handle POST form submission
+// Handle POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newComment = trim($_POST['comment'] ?? '');
 
-    // Authorization check:
-    // Admin and police can edit any comment
-    // Driver can edit only notifications related to their bus
-
     if ($userRole === 'driver') {
-        // Check if this notification belongs to the driver's bus
         $checkSql = "SELECT n.notification_id
                      FROM notifications n
                      INNER JOIN buses b ON n.bus_id = b.bus_id
@@ -45,11 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             die("Unauthorized to edit this comment.");
         }
         $checkStmt->close();
-    } elseif ($userRole !== 'admin' && $userRole !== 'police') {
+    } elseif (!in_array($userRole, ['admin', 'police'])) {
         die("Unauthorized role.");
     }
 
-    // Update comment
     $updateSql = "UPDATE notifications SET comment = ? WHERE notification_id = ?";
     $updateStmt = $conn->prepare($updateSql);
     $updateStmt->bind_param('si', $newComment, $notificationId);
@@ -57,14 +50,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($updateStmt->execute()) {
         $updateStmt->close();
         $conn->close();
-        header("Location: view_notification.php?msg=Comment+updated+successfully");
+
+        // Redirect based on role
+        if ($userRole === 'driver') {
+            header("Location: driver_dashboard.php?msg=Comment+updated+successfully");
+        } else {
+            header("Location: edit_comment.php?msg=Comment+updated+successfully");
+        }
         exit;
     } else {
         $error = "Failed to update comment.";
     }
 }
 
-// Fetch existing notification and comment for display in form
+// Fetch notification
 $sql = "SELECT notification_id, bus_id, message, sent_at, comment FROM notifications WHERE notification_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param('i', $notificationId);
@@ -111,6 +110,10 @@ $conn->close();
         <input type="submit" value="Save Comment">
     </form>
 
-    <a class="back-link" href="view_notification.php">← Back to Notifications</a>
+    <?php if ($userRole === 'driver'): ?>
+        <a class="back-link" href="driver_dashboard.php">← Back to Dashboard</a>
+    <?php else: ?>
+        <a class="back-link" href="edit_comment.php">← Back to Notifications</a>
+    <?php endif; ?>
 </body>
 </html>
