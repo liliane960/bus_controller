@@ -158,6 +158,7 @@ if (!$conn) {
 
         <!-- Page-specific dynamic content -->
         <section id="main-content">
+           <?php include 'profile_admin.php'; ?>
             <p>Loading...</p>
         </section>
     </main>

@@ -2,6 +2,7 @@
 session_start();
 require_once '../config/db.php';
 
+// Only allow admins to access
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     die("Access denied. Admin only.");
 }
@@ -19,9 +20,10 @@ $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $stmt->close();
 
-// Optional: Fetch system statistics
+// Fetch system statistics
 $totalUsers = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc()['total'];
 $totalDrivers = $conn->query("SELECT COUNT(*) as total FROM users WHERE role='driver'")->fetch_assoc()['total'];
+$totalPolice = $conn->query("SELECT COUNT(*) as total FROM users WHERE role='police'")->fetch_assoc()['total'];
 $totalNotifications = $conn->query("SELECT COUNT(*) as total FROM notifications")->fetch_assoc()['total'];
 
 $conn->close();
@@ -32,9 +34,10 @@ $conn->close();
 <head>
     <title>Admin Profile</title>
     <style>
-        body { font-family: Arial; max-width: 800px; margin: 40px auto; }
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 40px auto; }
         h1, h2 { color: #333; }
-        .info { margin-bottom: 30px; }
+        .info, .stats { margin-bottom: 30px; padding: 20px; border: 1px solid #ddd; border-radius: 6px; background: #f9f9f9; }
+        p { margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -42,20 +45,12 @@ $conn->close();
     <h1>Admin Profile</h1>
 
     <div class="info">
+        <h2>Account Info</h2>
         <p><strong>Username:</strong> <?= htmlspecialchars($user['username']) ?></p>
         <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
         <p><strong>Role:</strong> <?= htmlspecialchars($user['role']) ?></p>
-        <p><strong>Joined on:</strong> <?= htmlspecialchars($user['created_at']) ?></p>
+        <p><strong>Joined On:</strong> <?= htmlspecialchars($user['created_at']) ?></p>
     </div>
-
-    <h2>System Summary</h2>
-    <ul>
-        <li>Total Users: <?= $totalUsers ?></li>
-        <li>Total Drivers: <?= $totalDrivers ?></li>
-        <li>Total Notifications: <?= $totalNotifications ?></li>
-    </ul>
-
-    <p><a href="admin_dashboard.php">← Back to Dashboard</a></p>
 
 </body>
 </html>
