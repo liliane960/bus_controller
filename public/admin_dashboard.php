@@ -137,7 +137,7 @@ if (!$conn) {
     <!-- Sidebar -->
     <nav>
         <ul>
-            <!-- <li><a href="Dashboard.php">Dashboard</a></li> -->
+            <li><a href="profile_admin.php">Profile</a></li>
             <li><a href="register.php">Register User</a></li>
             <li><a href="add_bus.php">Register Bus</a></li>
             <li><a href="view_users.php">View Users</a></li>
