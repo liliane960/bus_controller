@@ -170,7 +170,8 @@ if (!$conn) {
     <!-- Sidebar -->
     <nav>
         <ul>
-
+            <!-- <h2>Welcome, <?= $_SESSION['user_id']['user_id'] ?> (plice)</h2> -->
+        
             <li><a href="profile_police.php">Profils</a></li>
             <li><a href="view_notificationspolice.php">View Notifications </a></li>
             <!-- <li><a href="view_car_report.php">View Car Reports</a></li> -->
