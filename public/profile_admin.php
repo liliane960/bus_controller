@@ -11,8 +11,8 @@ $userId = $_SESSION['user_id'];
 $db = new Database();
 $conn = $db->connect();
 
-// Fetch admin user info
-$sql = "SELECT username, email, role, created_at FROM users WHERE user_id = ?";
+// Fetch admin user info (removed email column as it doesn't exist)
+$sql = "SELECT username, role, created_at FROM users WHERE user_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $userId);
 $stmt->execute();
@@ -47,9 +47,16 @@ $conn->close();
     <div class="info">
         <h2>Account Info</h2>
         <p><strong>Username:</strong> <?= htmlspecialchars($user['username']) ?></p>
-        <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
         <p><strong>Role:</strong> <?= htmlspecialchars($user['role']) ?></p>
         <p><strong>Joined On:</strong> <?= htmlspecialchars($user['created_at']) ?></p>
+    </div>
+
+    <div class="stats">
+        <h2>System Statistics</h2>
+        <p><strong>Total Users:</strong> <?= $totalUsers ?></p>
+        <p><strong>Total Drivers:</strong> <?= $totalDrivers ?></p>
+        <p><strong>Total Police:</strong> <?= $totalPolice ?></p>
+        <p><strong>Total Notifications:</strong> <?= $totalNotifications ?></p>
     </div>
 
 </body>

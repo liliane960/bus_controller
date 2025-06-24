@@ -1,121 +1,154 @@
+<?php
+session_start();
+require_once '../config/db.php';
+
+// Only allow admins to register new users
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    die("Access denied. Admin only.");
+}
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Register New User</title>
-    <link rel="stylesheet" href="css/style.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
+            background: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
         }
 
-        h1 {
-            text-align: center;
-            /* margin-top: 30px; */
-            color: #333;
-        }
-
-        form {
-            background-color: #ffffff;
-            max-width: 400px;
-            margin: 30px auto;
-            margin-top: 60px;
+        .register-container {
+            background: #fff;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 400px;
         }
 
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
+        .register-container h1 {
+            text-align: center;
+            margin-bottom: 30px;
             color: #333;
         }
 
-        input[type="text"],
-        input[type="password"],
-        input[type="email"],
-        select {
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group select {
             width: 100%;
             padding: 10px;
-            margin-bottom: 18px;
-            border: 1px solid #ccc;
+            border: 1px solid #ddd;
             border-radius: 5px;
+            font-size: 14px;
             box-sizing: border-box;
         }
 
-        button[type="submit"] {
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
+        .register-container button {
             width: 100%;
-            background-color: #3498db;
+            background: #3498db;
             color: white;
-            border: none;
             padding: 12px;
-            font-size: 16px;
+            border: none;
             border-radius: 5px;
+            font-size: 16px;
             cursor: pointer;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #2980b9;
-        }
-
-        .success-message {
-            text-align: center;
-            color: green;
             margin-top: 10px;
-            font-weight: bold;
         }
 
-        .error-message {
-            text-align: center;
+        .register-container button:hover {
+            background: #2980b9;
+        }
+
+        .error {
             color: red;
-            margin-top: 10px;
-            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <h1 style="margin-top: 100px; font-size: 20px;">Register New User</h1>
+    <div class="register-container">
+        <h1>Register New User</h1>
+        
+        <?php if (isset($_GET['error'])): ?>
+            <p class="error"><?= htmlspecialchars($_GET['error']) ?></p>
+        <?php endif; ?>
+        
+        <?php if (isset($_GET['success'])): ?>
+            <p class="success"><?= htmlspecialchars($_GET['success']) ?></p>
+        <?php endif; ?>
 
-    <?php
-    $message = isset($_GET['message']) ? $_GET['message'] : '';
-    $isSuccess = strpos($message, '✅') !== false;
-    if (!empty($message)): ?>
-        <p class="<?= $isSuccess ? 'success-message' : 'error-message' ?>">
-            <?= htmlspecialchars($message) ?>
-        </p>
-    <?php endif; ?>
+        <form method="POST" action="register_process.php">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" required>
+            </div>
 
-    <form action="register_process.php" method="POST">
-        <label>Username:</label>
-        <input type="text" name="username" required>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" required>
+            </div>
 
-        <label>Password:</label>
-        <input type="password" name="password" required>
+            <div class="form-group">
+                <label for="role">Role:</label>
+                <select name="role" id="role" required>
+                    <option value="">Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="driver">Driver</option>
+                    <option value="police">Police</option>
+                </select>
+            </div>
 
-        <label>Email:</label>
-        <input type="email" name="email" required>
+            <button type="submit">Register User</button>
+        </form>
 
-        <label>Role:</label>
-        <select name="role" required>
-            <option value="">-- Select Role --</option>
-            <option value="admin">Admin</option>
-            <option value="driver">Driver</option>
-            <option value="police">Police</option>
-        </select>
-
-        <button type="submit">Register</button>
-    </form>
-
-    <?php if ($isSuccess): ?>
-    <script>
-        setTimeout(function () {
-            location.reload();
-        }, 3000);
-    </script>
-    <?php endif; ?>
+        <div class="back-link">
+            <a href="admin_dashboard.php">← Back to Dashboard</a>
+        </div>
+    </div>
 </body>
 </html>

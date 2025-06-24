@@ -1,52 +1,60 @@
 <?php
+session_start();
 require_once '../config/db.php';
 
-$db = new Database();
-$conn = $db->connect();
+// Only allow admins to register new users
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    die("Access denied. Admin only.");
+}
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
-    $email = trim($_POST['email']);
     $role = $_POST['role'];
 
-    if (empty($username) || empty($password) || empty($email) || empty($role)) {
-        die("Please fill all fields.");
+    if (empty($username) || empty($password) || empty($role)) {
+        header("Location: register.php?error=All fields are required");
+        exit();
     }
 
     // Validate role
-    $allowed_roles = ['admin', 'driver', 'police'];
-    if (!in_array($role, $allowed_roles)) {
-        die("Invalid role selected.");
+    $validRoles = ['admin', 'driver', 'police'];
+    if (!in_array($role, $validRoles)) {
+        header("Location: register.php?error=Invalid role selected");
+        exit();
     }
 
-    // Check for duplicate username
-    $check = $conn->prepare("SELECT * FROM users WHERE username = ?");
-    $check->bind_param("s", $username);
-    $check->execute();
-    $check->store_result();
-    if ($check->num_rows > 0) {
-        die("Username already exists.");
-    }
-    $check->close();
+    $db = new Database();
+    $conn = $db->connect();
 
-    // Hash the password
+    // Check if username already exists
+    $checkStmt = $conn->prepare("SELECT user_id FROM users WHERE username = ?");
+    $checkStmt->bind_param("s", $username);
+    $checkStmt->execute();
+    $result = $checkStmt->get_result();
+
+    if ($result->num_rows > 0) {
+        header("Location: register.php?error=Username already exists");
+        exit();
+    }
+    $checkStmt->close();
+
+    // Hash password
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Insert user into database
-    $stmt = $conn->prepare("INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss", $username, $hashed_password, $email, $role);
+    // Insert new user (removed email column)
+    $stmt = $conn->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
+    $stmt->bind_param("sss", $username, $hashed_password, $role);
 
     if ($stmt->execute()) {
-        header("Location: admin_dashboard.php?message=✅ User registered successfully");
-        exit;
+        header("Location: register.php?success=User registered successfully");
     } else {
-        echo "Error: " . $stmt->error;
+        header("Location: register.php?error=Registration failed: " . $conn->error);
     }
 
-
     $stmt->close();
+    $conn->close();
+} else {
+    header("Location: register.php");
 }
-
-$conn->close();
 ?>
